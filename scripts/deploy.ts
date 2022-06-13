@@ -6,6 +6,7 @@
 import { ethers } from "hardhat";
 import { CrashRowToken } from "../typechain/CrashRowToken";
 
+//0xad341Ca197f081E42d5E941e0C332F46672ef2dd //mumbai
 async function main() {
     var token: CrashRowToken;
     const CrashRowTokenFactory = await ethers.getContractFactory("CrashRowToken");

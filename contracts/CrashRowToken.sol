@@ -43,7 +43,7 @@ contract LockBalance {
         return totalLocked;
     }
 
-    function AddLockinfo(
+    function addLockinfo(
         address to,
         uint256 amount,
         uint256 releaseTime
@@ -67,9 +67,6 @@ contract LockBalance {
 
         //add lockinfo if release time
         if (releaseTime > block.timestamp) _lockInfo[to].push(LockInfo(amount, releaseTime));
-        else {
-            // console.log("not added", releaseTime, block.timestamp);
-        }
     }
 }
 
@@ -98,7 +95,7 @@ contract CrashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
         uint256 amount
     ) internal override {
         super._beforeTokenTransfer(from, to, amount);
-        require(!paused(), "ERC20Pausable: token transfer while paused");
+        require(!paused(), "token transfer while paused");
         require(!isBlacklisted[from], "blacklisted from");
         require(!isBlacklisted[to], "blacklisted to");
 
@@ -106,7 +103,7 @@ contract CrashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
             //not minting
             uint256 locked = getLockedBalance(from);
             uint256 accountBalance = balanceOf(from);
-            require(accountBalance - locked >= amount, "Timelock: some balance has locked.");
+            require(accountBalance - locked >= amount, "some balance has locked.");
         }
     }
 
@@ -117,7 +114,7 @@ contract CrashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
     ) public returns (bool) {
         transfer(to, amount);
 
-        AddLockinfo(to, amount, releaseTime);
+        addLockinfo(to, amount, releaseTime);
 
         return true;
     }

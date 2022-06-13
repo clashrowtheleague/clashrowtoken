@@ -34,7 +34,7 @@ const config: HardhatUserConfig = {
             accounts: JSON.parse(process.env.privatekeys_main === undefined ? "[]" : process.env.privatekeys_main),
         },
         mumbai: {
-            url: `https://rpc-mumbai.matic.today`, //https://matic-mumbai.chainstacklabs.com
+            url: `https://matic-mumbai.chainstacklabs.com`, //`https://rpc-mumbai.matic.today`, //
             accounts: JSON.parse(process.env.privatekeys === undefined ? "[]" : process.env.privatekeys),
         },
         poly: {
