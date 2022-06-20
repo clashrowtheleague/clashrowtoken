@@ -71,14 +71,37 @@ describe("CrashRowToken", function () {
     });
 
     it("locktransfer test ", async function () {
-        let release = Math.floor(Date.now() / 1000) + 17;
-        var tx = await token.transferWithLocked(buyer.address, ethers.utils.parseEther("1"), release);
+        let release = Math.floor(Date.now() / 1000) + 18;
+        var tx = await token.transferWithLocked(buyer.address, ethers.utils.parseEther("7"), release);
         let locked = await token.getLockedBalance(buyer.address);
         console.log(ethers.utils.formatEther(locked));
+        await timeout(2000);
 
-        release = Math.floor(Date.now() / 1000) + 18;
-        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("1"), release);
+        release = Math.floor(Date.now() / 1000) + 19;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("6"), release);
         locked = await token.getLockedBalance(buyer.address);
         console.log(ethers.utils.formatEther(locked));
-    });    
+
+
+        release = Math.floor(Date.now() / 1000) + 25;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("5"), release);
+        locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+
+        release = Math.floor(Date.now() / 1000) + 24;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("4"), release);
+        locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+
+        release = Math.floor(Date.now() / 1000) + 20;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("3"), release);
+        locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+
+        release = Math.floor(Date.now() / 1000) + 22;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("2"), release);
+        locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+
+    }); 
 });

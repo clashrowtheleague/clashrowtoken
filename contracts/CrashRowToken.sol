@@ -39,6 +39,9 @@ contract LockBalance {
         for (uint256 i = 0; i < _lockInfo[_addr].length; i++) {
             // console.log(_lockInfo[_addr][i].releaseTime, block.timestamp);
             if (_lockInfo[_addr][i].releaseTime > block.timestamp) totalLocked += _lockInfo[_addr][i].amount;
+            // else{
+            //     console.log("released info : %d", _lockInfo[_addr][i].amount);
+            // }
         }
         return totalLocked;
     }
@@ -51,12 +54,16 @@ contract LockBalance {
         //remove released lockinfos
         uint256 lockCount = 0;
         for (uint256 i = 0; i < _lockInfo[to].length; i++) {
+            if (i > lockCount) {
+                // console.log("%d = %d", lockCount, i);
+                _lockInfo[to][lockCount] = _lockInfo[to][i];
+            }
             if (_lockInfo[to][i].releaseTime > block.timestamp) {
                 lockCount++;
             }
-            if (i >= lockCount) {
-                _lockInfo[to][lockCount] = _lockInfo[to][i];
-            }
+            // else{
+            //     console.log("will remove : %d, %d",i,  _lockInfo[to][i].amount);
+            // }
         }
         uint256 removeCount = _lockInfo[to].length - lockCount;
         if (lockCount == 0) delete _lockInfo[to];
@@ -67,6 +74,9 @@ contract LockBalance {
 
         //add lockinfo if release time
         if (releaseTime > block.timestamp) _lockInfo[to].push(LockInfo(amount, releaseTime));
+        // else{
+        //     console.log("not added");
+        // }
     }
 }
 
