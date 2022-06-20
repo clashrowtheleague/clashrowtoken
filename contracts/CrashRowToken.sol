@@ -54,7 +54,7 @@ contract LockBalance {
             if (_lockInfo[to][i].releaseTime > block.timestamp) {
                 lockCount++;
             }
-            if (i != lockCount - 1) {
+            if (i >= lockCount) {
                 _lockInfo[to][lockCount] = _lockInfo[to][i];
             }
         }

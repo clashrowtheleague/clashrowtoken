@@ -69,4 +69,16 @@ describe("CrashRowToken", function () {
 
         await token.connect(buyer).transfer(minter.address, ethers.utils.parseEther("1"));
     });
+
+    it("locktransfer test ", async function () {
+        let release = Math.floor(Date.now() / 1000) + 17;
+        var tx = await token.transferWithLocked(buyer.address, ethers.utils.parseEther("1"), release);
+        let locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+
+        release = Math.floor(Date.now() / 1000) + 18;
+        await token.transferWithLocked(buyer.address, ethers.utils.parseEther("1"), release);
+        locked = await token.getLockedBalance(buyer.address);
+        console.log(ethers.utils.formatEther(locked));
+    });    
 });
