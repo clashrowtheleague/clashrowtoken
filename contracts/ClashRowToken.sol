@@ -80,7 +80,7 @@ contract LockBalance {
     }
 }
 
-contract CrashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
+contract ClashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
     constructor() ERC20("ClashRow - The League", "CRTL") {
         uint256 amount = 50_0000_0000 * 10**decimals();
         _mint(_msgSender(), amount);
