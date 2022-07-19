@@ -99,6 +99,10 @@ contract ClashRowToken is ERC20, Ownable, Pausable, BlackList, LockBalance {
         revert("Don't accept ETH or BNB");
     }
 
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+
     function _beforeTokenTransfer(
         address from,
         address to,
